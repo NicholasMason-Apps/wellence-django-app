@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{{ user.email }}</h1>
+    <ul>
+    {% for task in user.task_set.all %}
+        <li>{{ task.task_name }}</li>
+    {% endfor %}
+    </ul>
+{% endblock %}
