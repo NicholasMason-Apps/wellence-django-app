@@ -11,5 +11,5 @@ class CreateNewTask(forms.Form):
                                          'type': 'datetime-local'
                                      }
                                  ))
-    priority = forms.IntegerField(min_value=1, max_value=3, label="Priority (High- 1)")
+    priority = forms.IntegerField(min_value=1, max_value=3, label="Priority (High = 1, Low = 3)")
     is_urgent = forms.BooleanField(label="Urgent?", required=False)

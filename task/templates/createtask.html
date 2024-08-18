@@ -3,6 +3,12 @@
 {% block content %}
 <h1>Create Task</h1>
 
+{% if messages %}
+    {% for message in messages %}
+        <p><strong>{{ message }}</strong></p>
+    {% endfor %}
+{% endif %}
+
 <form method="post" action="/createtask/">
     {% csrf_token %}
     {{form.as_p}}

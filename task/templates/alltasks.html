@@ -1,18 +1,37 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>{{ user.email }}</h1>
+
+    {% if messages %}
+        {% for message in messages %}
+            <p><strong>{{ message }}</strong></p>
+        {% endfor %}
+    {% endif %}
+
     <form method="post" action="#">
         {% csrf_token %}
-        <ul class="alltasks-list">
-        {% for task in user.task_set.all %}
-            {% if task.completed == True %}
-                <li><input type="checkbox", value="clicked", name="click{{task.id}}" checked>{{ task.task_name }}. Due: {{ task.due_by }}, Priority: {{ task.priority }}, Urgent?: {{ task.is_urgent }}</li>
-            {% else %}
-                <li><input type="checkbox", value="clicked", name="click{{task.id}}">{{ task.task_name }}. Due: {{ task.due_by }}, Priority: {{ task.priority }}, Urgent?: {{ task.is_urgent }}</li>
-            {% endif %}
-        {% endfor %}
-        </ul>
+        <table class="task-table">
+            <tr>
+                <th>Task Name</th>
+                <th>Due By</th>
+                <th>Priority (High = 1, Low = 3)</th>
+                <th>Urgent</th>
+                <th>Completed</th>
+            </tr>
+            {% for task in user.tasks.all %}
+                <tr>
+                    <td>{{ task.task_name }}</td>
+                    <td>{{ task.due_by }}</td>
+                    <td>{{ task.priority }}</td>
+                    <td>{{ task.is_urgent }}</td>
+                    {% if task.completed == True %}
+                        <td><input type="checkbox", value="clicked", name="click{{task.id}}" checked></td>
+                    {% else %}
+                        <td><input type="checkbox", value="clicked", name="click{{task.id}}"></td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </table>
         <button type="submit">Save Changes</button>
     </form>
 {% endblock %}

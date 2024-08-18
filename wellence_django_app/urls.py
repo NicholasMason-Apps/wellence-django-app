@@ -21,6 +21,7 @@ from user import views as user_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('register/', user_views.register, name="register"),
+    path('logout/', user_views.logout_view, name="logout"),
     path('', include('task.urls')),
     path('', include("django.contrib.auth.urls")),
 ]

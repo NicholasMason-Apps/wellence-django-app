@@ -1,18 +1,12 @@
 from django.db import models
 from datetime import datetime
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.contrib.auth.models import User
 
 # Create your models here.
 
-class User(models.Model):
-    email = models.EmailField()
-    password = models.TextField()
-
-    def __str__(self):
-        return f"Email: {self.email}, Password: {self.password}"
-
 class Task(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tasks', null=True)
     task_name = models.CharField(max_length=200)
     due_by = models.DateTimeField(default=datetime.now())
     priority = models.IntegerField(default=3, validators=[MinValueValidator(1), MaxValueValidator(3)])

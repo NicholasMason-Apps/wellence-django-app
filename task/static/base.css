@@ -66,3 +66,18 @@ form input {
     padding: 5px;
     font-size: 14pt;
 }
+.task-table {
+    border-collapse: collapse;
+    margin: 0 10%;
+    width: 80%;
+}
+.task-table th, td {
+    text-align: left;
+    padding: 8px;
+}
+.task-table tr:nth-child(even) {
+    background-color: #dddddd;
+}
+.task-table tr {
+    border-bottom: 1px solid #ddd;
+}
