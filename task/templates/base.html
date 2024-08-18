@@ -13,9 +13,9 @@
       <div class="links-container">
         <a class="home-link" href="/">Home</a>
         <a href="/createtask">Create Task</a>
-        <a href="/alltasks">View</a>
+        <a href="/alltasks">Dashboard</a>
         {% if user.is_authenticated %}
-          <a href="/logout">{{ user.username }}</a>
+          <a href="/logout">Logout of {{ user.username }}</a>
         {% else %}
           <a href="/login">Log In</a>
         {% endif %}

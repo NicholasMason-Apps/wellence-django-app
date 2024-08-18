@@ -7,6 +7,11 @@
             <p><strong>{{ message }}</strong></p>
         {% endfor %}
     {% endif %}
+    <h2>Number of urgent tasks due within 30 days: {{ urgent_count }}</h2>
+    <div class="figures">
+        <div>{{ line_chart|safe }}</div>
+        <div>{{ pie_chart|safe }}</div>
+    </div>
 
     <form method="post" action="#">
         {% csrf_token %}
@@ -36,6 +41,4 @@
         </table>
         <button type="submit">Save Changes</button>
     </form>
-
-    {{ line_chart|safe }}
 {% endblock %}

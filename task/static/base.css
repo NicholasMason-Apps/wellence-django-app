@@ -78,6 +78,16 @@ form input {
 .task-table tr:nth-child(even) {
     background-color: #dddddd;
 }
-.task-table tr {
-    border-bottom: 1px solid #ddd;
+.figures {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+@media screen and (max-width:1400px) {
+    .figures {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        max-width: 525pt;
+    }
 }

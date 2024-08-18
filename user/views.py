@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth import login, authenticate, logout
 from .forms import RegisterForm
+from django.contrib import messages
 
 # Create your views here.
 def register(response):
@@ -9,6 +10,9 @@ def register(response):
         if form.is_valid():
             form.save()
             return redirect("/")
+        else:
+            messages.error(response, form.errors)
+            return redirect('register')
 
     form = RegisterForm()
     return render(response, "register.html", {"form":form})
