@@ -13,6 +13,7 @@ import plotly.express as px
 def all_tasks(response):
     user = response.user
     if response.method == "POST":
+        # If the response is POST, i.e. we sent a form, check for tasks to delete and mark as Completed / Not completed
         for task in user.tasks.all():
             if response.POST.get("delete" + str(task.id)) == "clicked":
                 task.delete()
@@ -60,6 +61,7 @@ def landing_page(response):
 @login_required
 def createtask(response):
     if response.method == "POST":
+        # If we have a POST, grab form data and attempt to save to the database
         form = CreateNewTask(response.POST)
         if form.is_valid():
             task = Task(task_name=form.cleaned_data['task_name'], due_by=form.cleaned_data['due_by'], priority=form.cleaned_data['priority'], is_urgent=form.cleaned_data['is_urgent'])

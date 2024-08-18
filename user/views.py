@@ -5,6 +5,7 @@ from django.contrib import messages
 
 # Create your views here.
 def register(response):
+    # Very simple register form which leverages the built-in login system in Django.
     if response.method == "POST":
         form = RegisterForm(response.POST)
         if form.is_valid():
