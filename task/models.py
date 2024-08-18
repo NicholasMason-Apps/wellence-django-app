@@ -17,6 +17,7 @@ class Task(models.Model):
     due_by = models.DateTimeField(default=datetime.now())
     priority = models.IntegerField(default=3, validators=[MinValueValidator(1), MaxValueValidator(3)])
     is_urgent = models.BooleanField(default=False)
+    completed = models.BooleanField(default=False)
 
     def __str__(self):
         return f"Task name: {self.task_name}, Due by: {self.due_by}, Priority: {self.priority}, Is Urgent?: {self.is_urgent}"

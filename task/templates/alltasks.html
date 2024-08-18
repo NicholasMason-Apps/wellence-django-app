@@ -2,9 +2,17 @@
 
 {% block content %}
     <h1>{{ user.email }}</h1>
-    <ul>
-    {% for task in user.task_set.all %}
-        <li>{{ task.task_name }}</li>
-    {% endfor %}
-    </ul>
+    <form method="post" action="#">
+        {% csrf_token %}
+        <ul class="alltasks-list">
+        {% for task in user.task_set.all %}
+            {% if task.completed == True %}
+                <li><input type="checkbox", value="clicked", name="click{{task.id}}" checked>{{ task.task_name }}. Due: {{ task.due_by }}, Priority: {{ task.priority }}, Urgent?: {{ task.is_urgent }}</li>
+            {% else %}
+                <li><input type="checkbox", value="clicked", name="click{{task.id}}">{{ task.task_name }}. Due: {{ task.due_by }}, Priority: {{ task.priority }}, Urgent?: {{ task.is_urgent }}</li>
+            {% endif %}
+        {% endfor %}
+        </ul>
+        <button type="submit">Save Changes</button>
+    </form>
 {% endblock %}

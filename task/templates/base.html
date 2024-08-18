@@ -1,14 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'base.css' %}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Wellence Django App</title>
   </head>
   <body>
-    {% block content %}
-        <p>Text</p>
-    {% endblock %}
+    <nav class="navbar">
+      <div class="links-container">
+        <a class="home-link" href="/">Home</a>
+        <a href="/register">Register</a>
+        <a href="/createtask">Create Task</a>
+        <a href="/1">View</a>
+      </div>
+    </nav>
+
+    <div id="content", name="content", class="content">
+      {% block content %}
+          <p>Text</p>
+      {% endblock %}
+    </div>
   </body>
 </html>
