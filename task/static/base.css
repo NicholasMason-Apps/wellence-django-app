@@ -72,8 +72,8 @@ form input {
     width: 80%;
 }
 .task-table th, td {
-    text-align: left;
     padding: 8px;
+    text-align: center;
 }
 .task-table tr:nth-child(even) {
     background-color: #dddddd;

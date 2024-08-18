@@ -1,9 +1,11 @@
 from django.shortcuts import redirect, render
-from django.http import HttpResponse, HttpResponseRedirect
 from .models import Task
 from .forms import CreateNewTask
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+import pandas as pd
+from datetime import datetime, timedelta
+import plotly.express as px
 
 # Create your views here.
 
@@ -11,14 +13,27 @@ from django.contrib import messages
 def all_tasks(response):
     user = response.user
     if response.method == "POST":
-        for task in user.task_set.all():
-            if response.POST.get("click" + str(task.id)) == "clicked":
+        for task in user.tasks.all():
+            if response.POST.get("delete" + str(task.id)) == "clicked":
+                task.delete()
+                continue
+            elif response.POST.get("click" + str(task.id)) == "clicked":
                 task.completed = True
             else:
                 task.completed = False
             task.save()
         messages.add_message(response, messages.INFO, "Successfully saved changes")
-    return render(response, 'alltasks.html', {'user': user})
+        return redirect('all_tasks')
+    
+    df = pd.DataFrame(user.tasks.all().values())
+    df_under_30_days = df[df['due_by'] <= str(datetime.now() + timedelta(days=30))]
+    df_under_30_days = pd.DataFrame(dict(x = df['due_by'], y = df['task_name']))
+    lc_fig = px.line(df_under_30_days, x="x", y="y", title="Tasks due within 30 Days", labels={
+        'x': 'Due By (hh:mm yyyy-mm-dd)',
+        'y': 'Task Name'
+    })
+    pcfig = px.pie() # To add
+    return render(response, 'alltasks.html', {'user': user, 'line_chart':lc_fig.to_html(full_html=False)})
 
 def landing_page(response):
     return render(response, 'index.html', {'user':response.user})
@@ -34,6 +49,7 @@ def createtask(response):
             messages.add_message(response, messages.INFO, "Task successfully created")
         else:
             messages.add_message(response, messages.INFO, "Task Creation Failed")
+        return redirect('createtask')
     
     form = CreateNewTask()
     return render(response, "createtask.html", {"form":form, 'user':response.user})

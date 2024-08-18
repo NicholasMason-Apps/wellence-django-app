@@ -17,6 +17,7 @@
                 <th>Priority (High = 1, Low = 3)</th>
                 <th>Urgent</th>
                 <th>Completed</th>
+                <th>Mark to Delete</th>
             </tr>
             {% for task in user.tasks.all %}
                 <tr>
@@ -29,9 +30,12 @@
                     {% else %}
                         <td><input type="checkbox", value="clicked", name="click{{task.id}}"></td>
                     {% endif %}
+                    <td><input type="checkbox", value="clicked", name="delete{{task.id}}"></td>
                 </tr>
             {% endfor %}
         </table>
         <button type="submit">Save Changes</button>
     </form>
+
+    {{ line_chart|safe }}
 {% endblock %}

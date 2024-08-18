@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'task.apps.TaskConfig',
-    'user.apps.UserConfig'
+    'user.apps.UserConfig',
 ]
 
 MIDDLEWARE = [
@@ -128,3 +128,4 @@ LOGIN_URL = "/login"
 LOGIN_REDIRECT_URL ="/"
 LOGOUT_REDIRECT_URL = "/"
 MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
+CRISPY_TEMPLATE_PACK = "bootstrap4"
