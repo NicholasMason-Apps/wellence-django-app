@@ -30,7 +30,7 @@ def all_tasks(response):
     df = df[(df['due_by'] <= str(datetime.now() + timedelta(days=30))) & (df['completed'] == False)] # Filtering dataframe to only tasks due within the next 30 days
     
     # Construct the DataFrame for the line chart and draw it.
-    line_chart_df = pd.DataFrame(dict(x = df['due_by'], y = df['task_name']))
+    line_chart_df = pd.DataFrame(dict(y = df['due_by'], x = df['task_name']))
     lc_fig = px.line(line_chart_df, x="x", y="y", title="Tasks due within 30 Days", labels={
         'x': 'Due By (hh:mm yyyy-mm-dd)',
         'y': 'Task Name'
